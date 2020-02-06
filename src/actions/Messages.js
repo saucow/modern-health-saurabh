@@ -7,6 +7,14 @@ const setMessages = messages => dispatch => {
   });
 };
 
+const deleteMessage = messageID => dispatch => {
+  dispatch({
+    type: MessagesConstants.DELETE,
+    messageID
+  });
+};
+
 export default {
-  setMessages
+  setMessages,
+  deleteMessage
 };

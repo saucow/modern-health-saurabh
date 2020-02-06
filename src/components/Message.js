@@ -9,8 +9,17 @@ class Message extends Component {
   }
 
   render() {
-    const { message } = this.props;
-    return <h4>{message.content}</h4>;
+    const { message, messagesActions } = this.props;
+    return (
+      <div
+        onClick={() => {
+          console.log("here");
+          messagesActions.deleteMessage(message.content);
+        }}
+      >
+        {message.content}
+      </div>
+    );
   }
 }
 
@@ -19,4 +28,7 @@ const mapDispatchToProps = dispatch => ({
   messagesActions: bindActionCreators(messagesActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Message);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Message);

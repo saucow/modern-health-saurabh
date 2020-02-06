@@ -10,6 +10,18 @@ const messages = handleActions(
         ...state,
         messages
       };
+    },
+    [MessagesConstants.DELETE]: (state, action) => {
+      const { messageID } = action;
+
+      var messages = state.messages.filter(function(message) {
+        return message.content != messageID;
+      });
+
+      return {
+        ...state,
+        messages
+      };
     }
   },
   {

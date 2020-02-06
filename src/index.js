@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import rootReducer from "./reducers/Messages";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import messagesReducer from "./reducers/Messages";
+import pagesReducer from "./reducers/Pages";
+
 import messagesActions from "./actions/Messages";
 import MessagesList from "./components/MessagesList";
 import thunk from "redux-thunk";
@@ -14,7 +16,10 @@ import "./style.css";
 import { messages } from "./data.json";
 
 const store = createStore(
-  rootReducer,
+  combineReducers({
+    messagesReducer,
+    pagesReducer
+  }),
   composeWithDevTools(applyMiddleware(thunk))
 );
 
