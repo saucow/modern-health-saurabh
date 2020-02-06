@@ -1,14 +1,43 @@
 import { combineReducers } from "redux";
 import { handleActions } from "redux-actions";
 import MessagesConstants from "../constants/Messages.js";
+import { sortBy, uniqWith } from "lodash";
 
 const messages = handleActions(
   {
-    [MessagesConstants.SET]: (state, action) => {
-      const { messages } = action;
+    [MessagesConstants.SORT]: (state, action) => {
+      const { ascending } = action;
+
+      let sortedMessages = sortBy(state.messages, function(message) {
+        return new Date(message.sentAt);
+      });
+
+      if (!ascending) {
+        sortedMessages = sortedMessages.reverse();
+      }
+
       return {
         ...state,
-        messages
+        messages: sortedMessages
+      };
+    },
+    [MessagesConstants.SET]: (state, action) => {
+      const { messages } = action;
+
+      const dedupedMessages = uniqWith(
+        messages,
+        (messageA, messageB) =>
+          messageA.content === messageB.content &&
+          messageA.uuid === messageB.uuid
+      );
+
+      const sortedMessages = sortBy(dedupedMessages, function(message) {
+        return new Date(message.sentAt);
+      });
+
+      return {
+        ...state,
+        messages: sortedMessages
       };
     },
     [MessagesConstants.DELETE]: (state, action) => {

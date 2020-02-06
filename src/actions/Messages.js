@@ -1,5 +1,12 @@
 import MessagesConstants from "../constants/Messages.js";
 
+const sortMessagesAscending = ascending => dispatch => {
+  dispatch({
+    type: MessagesConstants.SORT,
+    ascending
+  });
+};
+
 const setMessages = messages => dispatch => {
   dispatch({
     type: MessagesConstants.SET,
@@ -15,6 +22,7 @@ const deleteMessage = messageID => dispatch => {
 };
 
 export default {
+  sortMessagesAscending,
   setMessages,
   deleteMessage
 };

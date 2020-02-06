@@ -4,11 +4,13 @@ import messagesActions from "../actions/Messages";
 import Message from "../components/Message";
 import PagesControl from "../components/PagesControl";
 import { bindActionCreators } from "redux";
+import messagesData from "../data.json";
 
 const NUM_MESSAGES_PER_PAGE = 5;
 
 class MessagesList extends Component {
   state = {
+    sortOrder: "ascending",
     numPages: this.props.messages.messages.length
   };
 
@@ -28,6 +30,9 @@ class MessagesList extends Component {
     super(props);
     const { messagesActions } = this.props;
 
+    messagesActions.setMessages(messagesData.messages);
+
+    /*
     messagesActions.setMessages([
       {
         sentAt: "2012-11-13T17:29:37.003Z",
@@ -88,14 +93,59 @@ class MessagesList extends Component {
         uuid: "4354353",
         content: "10",
         senderUuid: "2"
+      },
+      {
+        sentAt: "2015-05-22T13:55:10.542Z",
+        uuid: "4354353",
+        content: "4",
+        senderUuid: "2"
+      },
+      {
+        sentAt: "2012-11-13T17:29:37.003Z",
+        uuid: "435453",
+        content: "5",
+        senderUuid: "2"
+      },
+      {
+        sentAt: "2015-05-22T13:55:10.542Z",
+        uuid: "4354353",
+        content: "6",
+        senderUuid: "2"
+      },
+      {
+        sentAt: "2012-11-13T17:29:37.003Z",
+        uuid: "435453",
+        content: "7",
+        senderUuid: "2"
+      },
+      {
+        sentAt: "2015-05-22T13:55:10.542Z",
+        uuid: "4354353",
+        content: "8",
+        senderUuid: "2"
+      },
+      {
+        sentAt: "2012-11-13T17:29:37.003Z",
+        uuid: "435453",
+        content: "9",
+        senderUuid: "2"
+      },
+      {
+        sentAt: "2015-05-22T13:55:10.542Z",
+        uuid: "4354353",
+        content: "10",
+        senderUuid: "2"
       }
     ]);
+    */
   }
 
   render() {
-    const { numPages } = this.state;
+    const { numPages, sortOrder } = this.state;
     var messages = this.props.messages.messages;
     var pageIndex = this.props.pages.pageIndex;
+    const { messagesActions } = this.props;
+
     console.log(
       messages.slice(
         pageIndex * NUM_MESSAGES_PER_PAGE,
@@ -113,6 +163,24 @@ class MessagesList extends Component {
       .map(message => <Message message={message} />);
     return (
       <div>
+        <div>
+          <select
+            value={sortOrder}
+            onChange={e => {
+              let newSortOrder = e.target.value;
+              this.setState({ sortOrder: newSortOrder });
+
+              if (newSortOrder === "ascending") {
+                messagesActions.sortMessagesAscending(true);
+              } else {
+                messagesActions.sortMessagesAscending(false);
+              }
+            }}
+          >
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+          </select>
+        </div>
         <div>{messageElements}</div>
         <PagesControl numPages={numPages} />
       </div>
