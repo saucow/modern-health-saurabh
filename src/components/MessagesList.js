@@ -31,113 +31,6 @@ class MessagesList extends Component {
     const { messagesActions } = this.props;
 
     messagesActions.setMessages(messagesData.messages);
-
-    /*
-    messagesActions.setMessages([
-      {
-        sentAt: "2012-11-13T17:29:37.003Z",
-        uuid: "435453",
-        content: "1",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2015-05-22T13:55:10.542Z",
-        uuid: "4354353",
-        content: "2",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2012-11-13T17:29:37.003Z",
-        uuid: "435453",
-        content: "3",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2015-05-22T13:55:10.542Z",
-        uuid: "4354353",
-        content: "4",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2012-11-13T17:29:37.003Z",
-        uuid: "435453",
-        content: "5",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2015-05-22T13:55:10.542Z",
-        uuid: "4354353",
-        content: "6",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2012-11-13T17:29:37.003Z",
-        uuid: "435453",
-        content: "7",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2015-05-22T13:55:10.542Z",
-        uuid: "4354353",
-        content: "8",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2012-11-13T17:29:37.003Z",
-        uuid: "435453",
-        content: "9",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2015-05-22T13:55:10.542Z",
-        uuid: "4354353",
-        content: "10",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2015-05-22T13:55:10.542Z",
-        uuid: "4354353",
-        content: "4",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2012-11-13T17:29:37.003Z",
-        uuid: "435453",
-        content: "5",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2015-05-22T13:55:10.542Z",
-        uuid: "4354353",
-        content: "6",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2012-11-13T17:29:37.003Z",
-        uuid: "435453",
-        content: "7",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2015-05-22T13:55:10.542Z",
-        uuid: "4354353",
-        content: "8",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2012-11-13T17:29:37.003Z",
-        uuid: "435453",
-        content: "9",
-        senderUuid: "2"
-      },
-      {
-        sentAt: "2015-05-22T13:55:10.542Z",
-        uuid: "4354353",
-        content: "10",
-        senderUuid: "2"
-      }
-    ]);
-    */
   }
 
   render() {
@@ -146,15 +39,6 @@ class MessagesList extends Component {
     var pageIndex = this.props.pages.pageIndex;
     const { messagesActions } = this.props;
 
-    console.log(
-      messages.slice(
-        pageIndex * NUM_MESSAGES_PER_PAGE,
-        (pageIndex + 1) * NUM_MESSAGES_PER_PAGE
-      )
-    );
-
-    console.log(pageIndex * NUM_MESSAGES_PER_PAGE);
-
     const messageElements = messages
       .slice(
         pageIndex * NUM_MESSAGES_PER_PAGE,
@@ -162,8 +46,19 @@ class MessagesList extends Component {
       )
       .map(message => <Message message={message} />);
     return (
-      <div>
-        <div>
+      <div
+        style={{
+          width: "75%"
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
+          <h3>Messages:</h3>
           <select
             value={sortOrder}
             onChange={e => {

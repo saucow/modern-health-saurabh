@@ -11,33 +11,34 @@ class PagesControl extends Component {
 
   render() {
     const { numPages, pageIndex, pagesActions } = this.props;
+
     return (
       <div
         style={{
-          display: "flex"
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
         }}
       >
-        {pageIndex > 0 ? (
-          <div
-            onClick={() => {
-              pagesActions.previousPage();
-            }}
-          >
-            Previous
-          </div>
-        ) : null}
+        <button
+          disabled={!(pageIndex > 0)}
+          onClick={() => {
+            pagesActions.previousPage();
+          }}
+        >
+          Previous Page
+        </button>
         <div>
           Page: {pageIndex + 1} / {numPages}
         </div>
-        {pageIndex + 1 < numPages ? (
-          <div
-            onClick={() => {
-              pagesActions.nextPage();
-            }}
-          >
-            Next
-          </div>
-        ) : null}
+        <button
+          disabled={!(pageIndex + 1 < numPages)}
+          onClick={() => {
+            pagesActions.nextPage();
+          }}
+        >
+          Next Page
+        </button>
       </div>
     );
   }
