@@ -5,7 +5,6 @@ import PagesConstants from "../constants/Pages.js";
 const pages = handleActions(
   {
     [PagesConstants.NEXT]: (state, action) => {
-      console.log("next");
       return {
         ...state,
         pageIndex: state.pageIndex + 1

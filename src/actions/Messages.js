@@ -14,10 +14,10 @@ const setMessages = messages => dispatch => {
   });
 };
 
-const deleteMessage = messageID => dispatch => {
+const deleteMessage = message => dispatch => {
   dispatch({
     type: MessagesConstants.DELETE,
-    messageID
+    message
   });
 };
 

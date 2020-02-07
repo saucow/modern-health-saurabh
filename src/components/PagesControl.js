@@ -1,14 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import pagesActions from "../actions/Pages";
 import { bindActionCreators } from "redux";
 
 class PagesControl extends Component {
-  constructor(props) {
-    super(props);
-    const { pagesActions } = this.props;
-  }
-
   render() {
     const { numPages, pageIndex, pagesActions } = this.props;
 
@@ -17,7 +13,9 @@ class PagesControl extends Component {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center"
+          alignItems: "center",
+          borderTop: "1px solid lightgray",
+          marginTop: "20px"
         }}
       >
         <button
@@ -28,9 +26,9 @@ class PagesControl extends Component {
         >
           Previous Page
         </button>
-        <div>
-          Page: {pageIndex + 1} / {numPages}
-        </div>
+        <h5>
+          Page: {pageIndex + 1} of {numPages}
+        </h5>
         <button
           disabled={!(pageIndex + 1 < numPages)}
           onClick={() => {
@@ -50,6 +48,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   pagesActions: bindActionCreators(pagesActions, dispatch)
 });
+
+PagesControl.propTypes = {
+  numPages: PropTypes.number
+};
 
 export default connect(
   mapStateToProps,

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import messagesActions from "../actions/Messages";
 import { bindActionCreators } from "redux";
 import moment from "moment";
+import messagesActions from "../actions/Messages";
 
 class Message extends Component {
   state = {
@@ -72,7 +73,7 @@ class Message extends Component {
               marginLeft: "10px"
             }}
             onClick={() => {
-              messagesActions.deleteMessage(message.content);
+              messagesActions.deleteMessage(message);
             }}
           >
             Delete Message
@@ -87,6 +88,10 @@ const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
   messagesActions: bindActionCreators(messagesActions, dispatch)
 });
+
+Message.propTypes = {
+  message: PropTypes.object
+};
 
 export default connect(
   mapStateToProps,

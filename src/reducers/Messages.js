@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { handleActions } from "redux-actions";
 import MessagesConstants from "../constants/Messages.js";
-import { sortBy, uniqWith } from "lodash";
+import { sortBy, uniqWith, remove } from "lodash";
 
 const messages = handleActions(
   {
@@ -41,10 +41,14 @@ const messages = handleActions(
       };
     },
     [MessagesConstants.DELETE]: (state, action) => {
-      const { messageID } = action;
+      const { message } = action;
 
-      var messages = state.messages.filter(function(message) {
-        return message.content != messageID;
+      let messages = state.messages;
+      remove(messages, function(messageObj) {
+        return (
+          messageObj.content === message.content &&
+          messageObj.uuid === message.uuid
+        );
       });
 
       return {

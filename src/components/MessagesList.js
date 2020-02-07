@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import messagesActions from "../actions/Messages";
 import Message from "../components/Message";
 import PagesControl from "../components/PagesControl";
-import { bindActionCreators } from "redux";
 import messagesData from "../data.json";
 
 const NUM_MESSAGES_PER_PAGE = 5;
@@ -15,6 +15,7 @@ class MessagesList extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
+    // Update number of pages
     let newNumPages = Math.ceil(
       props.messages.messages.length / NUM_MESSAGES_PER_PAGE
     );
@@ -30,6 +31,7 @@ class MessagesList extends Component {
     super(props);
     const { messagesActions } = this.props;
 
+    // Set messages from json
     messagesActions.setMessages(messagesData.messages);
   }
 
@@ -39,12 +41,16 @@ class MessagesList extends Component {
     var pageIndex = this.props.pages.pageIndex;
     const { messagesActions } = this.props;
 
+    // Get messages per page
     const messageElements = messages
       .slice(
         pageIndex * NUM_MESSAGES_PER_PAGE,
         (pageIndex + 1) * NUM_MESSAGES_PER_PAGE
       )
-      .map(message => <Message message={message} />);
+      .map(message => (
+        <Message key={`${message.uuid}${message.content}`} message={message} />
+      ));
+
     return (
       <div
         style={{
@@ -55,7 +61,9 @@ class MessagesList extends Component {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center"
+            alignItems: "center",
+            borderBottom: "1px solid lightgray",
+            marginBottom: "20px"
           }}
         >
           <h3>Messages:</h3>
